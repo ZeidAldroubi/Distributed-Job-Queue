@@ -14,7 +14,8 @@ Open the dashboard at `http://localhost:8080` after running the project. It show
 - Relaunch a killed worker
 - Delete a worker permanently
 
-![Dashboard screenshot](docs/dashboard-screenshot.png)
+<img width="1895" height="852" alt="Screenshot 2026-08-23 220805" src="https://github.com/user-attachments/assets/5c1bd967-b872-41b9-8855-e0d483896199" />
+
 
 ## Architecture
 
@@ -110,15 +111,9 @@ Use the dashboard's "Add Worker" button to bring workers online, then submit job
 
 **Token-bucket rate limiting** was chosen over a fixed window because it allows normal bursty traffic while still bounding sustained load.
 
-## Load test results
-
-| Requests | Concurrency | Requests/sec | Error rate | p50 latency | p95 latency |
-|---|---|---|---|---|---|
-| 500 | 50 | (run `load-test/run.sh` and fill in) | | | |
-
 ## Possible next steps
 
 - Persistent job history (currently Redis only, no long-term storage)
 - Auth on the worker-management endpoints
 - Horizontally scale the API itself behind a load balancer
-- Export metrics to Prometheus
+eus
