@@ -1,0 +1,39 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: job-queue-redis
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: job-queue-api
+    environment:
+      REDIS_ADDR: redis:6379
+      WORKER_IMAGE: job-queue-worker:latest
+      WORKER_PROCESSING_DELAY_MS: 1500
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./output:/output
+    depends_on:
+      - redis
+
+  worker-image:
+    build:
+      context: .
+      dockerfile: worker/Dockerfile
+    image: job-queue-worker:latest
+    profiles:
+      - worker-image
+    environment:
+      REDIS_ADDR: redis:6379
+      WORKER_NAME: worker-template
+      PROCESSING_DELAY_MS: 1500
+    volumes:
+      - ./output:/output
+    depends_on:
+      - redis

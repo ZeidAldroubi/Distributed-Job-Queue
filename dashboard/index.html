@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Distributed Job Queue</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Distributed Job Queue</h1>
+          <p>Redis-backed image resizing with worker recovery</p>
+        </div>
+        <div class="actions">
+          <button id="submitJobs" type="button">Submit 100 test jobs</button>
+        </div>
+      </header>
+
+      <section class="metrics" aria-label="Queue metrics">
+        <div class="metric">
+          <span>Queue Depth</span>
+          <strong id="queueDepth">0</strong>
+        </div>
+        <div class="metric">
+          <span>Processing</span>
+          <strong id="processingCount">0</strong>
+        </div>
+        <div class="metric">
+          <span>Jobs/sec</span>
+          <strong id="jobsPerSec">0.0</strong>
+        </div>
+        <div class="metric">
+          <span>Dead Letter</span>
+          <strong id="deadCount">0</strong>
+        </div>
+      </section>
+
+      <section class="worker-panel" aria-label="Worker management">
+        <form id="addWorkerForm" class="add-worker">
+          <input id="workerName" name="workerName" type="text" placeholder="worker-alpha" autocomplete="off">
+          <button type="submit">Add Worker</button>
+        </form>
+        <p id="workerError" class="form-error" role="alert"></p>
+        <div id="workers" class="workers"></div>
+      </section>
+
+      <section class="feed-wrap">
+        <div class="feed-head">
+          <h2>Event Feed</h2>
+          <span id="socketState">connecting</span>
+        </div>
+        <ol id="eventFeed" class="feed"></ol>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
